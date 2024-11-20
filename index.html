@@ -1061,111 +1061,112 @@
     }
 
     function createDropTargets() {
-      // Remove only drop targets and chiral centers, preserve mutation labels
-      const existingElements = document.querySelectorAll('.drop-target, .chiral-center');
-      existingElements.forEach(el => el.remove());
-
-      // Create new drop targets and chiral centers
-      for (let i = 0; i < residueCount; i++) {
-        const angle = (i * 2 * Math.PI) / residueCount - Math.PI / 2;
-        const positions = [1, 2, 3, 4, 6];
-
-        positions.forEach(pos => {
-          let offsetAngle, distance, className;
-
-          if (pos === 6) {
-            // Position 6 towards the inside
-            offsetAngle = angle;
-            distance = 170;
-            className = 'drop-target';
-          } else if (pos === 2 || pos === 3) {
-            // Positions 2 and 3 towards the outside
-            const direction = pos === 2 ? -1 : 1;
-            offsetAngle = angle + (direction * Math.PI / 20); // Changed from Math.PI / 16 to Math.PI / 20 for closer positioning
-            distance = 230;
-            className = 'drop-target';
-          } else if (pos === 1 || pos === 4) {
-            // Positions 1 and 4 (chiral centers)
-            const direction = pos === 1 ? -1 : 1;
-            offsetAngle = angle + (direction * Math.PI / 16); // Changed from Math.PI/12 to Math.PI/16 for closer positioning
-            distance = 195; // Changed from 200 to 195 to bring them closer to residue
-            className = 'chiral-center';
-            
-            // Get residue center coordinates for line drawing
-            const residueX = canvas.width / 2 + 200 * Math.cos(angle);
-            const residueY = canvas.height / 2 + 200 * Math.sin(angle);
-            
-            // Draw connecting line
-            ctx.beginPath();
-            ctx.moveTo(residueX, residueY);
+        // Remove only drop targets and chiral centers, preserve mutation labels
+        const existingElements = document.querySelectorAll('.drop-target, .chiral-center');
+        existingElements.forEach(el => el.remove());
+  
+        // Create new drop targets and chiral centers
+        for (let i = 0; i < residueCount; i++) {
+          const angle = (i * 2 * Math.PI) / residueCount - Math.PI / 2;
+          const positions = [1, 2, 3, 4, 6];
+  
+          positions.forEach(pos => {
+            let offsetAngle, distance, className;
+  
+            if (pos === 6) {
+              // Position 6 towards the inside
+              const direction = 1;
+              offsetAngle = angle + (direction * Math.PI / 20);
+              distance = 160;
+              className = 'drop-target';
+            } else if (pos === 2 || pos === 3) {
+              // Positions 2 and 3 towards the outside
+              const direction = pos === 2 ? -1 : 1;
+              offsetAngle = angle + (direction * Math.PI / 40); // Cambiado de Math.PI/20 a Math.PI/30 para acercar más las posiciones
+              distance = 230;
+              className = 'drop-target';
+            } else if (pos === 1 || pos === 4) {
+              // Positions 1 and 4 (chiral centers)
+              const direction = pos === 1 ? -1 : 1;
+              offsetAngle = angle + (direction * Math.PI / 20); // Reducido de Math.PI/16 a Math.PI/24 para acercar más al hexágono
+              distance = 200; // Reducido de 200 a 185 para acercar más al hexágono
+              className = 'chiral-center';
+              
+              // Get residue center coordinates for line drawing
+              const residueX = canvas.width / 2 + 200 * Math.cos(angle);
+              const residueY = canvas.height / 2 + 200 * Math.sin(angle);
+              
+              // Draw connecting line
+              ctx.beginPath();
+              ctx.moveTo(residueX, residueY);
+              const x = canvas.width / 2 + distance * Math.cos(offsetAngle);
+              const y = canvas.height / 2 + distance * Math.sin(offsetAngle);
+              ctx.lineTo(x, y);
+              ctx.strokeStyle = '#9b59b6'; // Use chiral color
+              ctx.lineWidth = 1;
+              ctx.setLineDash([2, 2]); // Make line dashed
+              ctx.stroke();
+              ctx.setLineDash([]); // Reset line style
+            }
+  
             const x = canvas.width / 2 + distance * Math.cos(offsetAngle);
             const y = canvas.height / 2 + distance * Math.sin(offsetAngle);
-            ctx.lineTo(x, y);
-            ctx.strokeStyle = '#9b59b6'; // Use chiral color
-            ctx.lineWidth = 1;
-            ctx.setLineDash([2, 2]); // Make line dashed
-            ctx.stroke();
-            ctx.setLineDash([]); // Reset line style
-          }
-
-          const x = canvas.width / 2 + distance * Math.cos(offsetAngle);
-          const y = canvas.height / 2 + distance * Math.sin(offsetAngle);
-
-          const element = document.createElement('div');
-          element.className = className;
-          element.style.left = `${x}px`;
-          element.style.top = `${y}px`;
-          element.dataset.residueIndex = i;
-          element.dataset.position = pos;
-
-          if (className === 'drop-target') {
-            element.addEventListener('dragover', handleDragOver);
-            element.addEventListener('drop', handleDrop);
-            element.addEventListener('dragleave', () => element.classList.remove('active'));
-            element.addEventListener('dblclick', handleChiralDoubleClick);
-
-            // Check if there is a chiral mutation in this position
-            const isChiral = chiralMutations.some(mutation =>
-              mutation.residueIndex === i && mutation.position === pos
-            );
-            if (isChiral) {
-              element.classList.add('chiral');
+  
+            const element = document.createElement('div');
+            element.className = className;
+            element.style.left = `${x}px`;
+            element.style.top = `${y}px`;
+            element.dataset.residueIndex = i;
+            element.dataset.position = pos;
+  
+            if (className === 'drop-target') {
+              element.addEventListener('dragover', handleDragOver);
+              element.addEventListener('drop', handleDrop);
+              element.addEventListener('dragleave', () => element.classList.remove('active'));
+              element.addEventListener('dblclick', handleChiralDoubleClick);
+  
+              // Check if there is a chiral mutation in this position
+              const isChiral = chiralMutations.some(mutation =>
+                mutation.residueIndex === i && mutation.position === pos
+              );
+              if (isChiral) {
+                element.classList.add('chiral');
+              } else {
+                element.classList.remove('chiral');
+              }
+  
+              circularDisplay.appendChild(element);
+  
+              // Draw lines from the residue to the drop target
+              const residueX = canvas.width / 2 + 200 * Math.cos(angle);
+              const residueY = canvas.height / 2 + 200 * Math.sin(angle);
+  
+              ctx.beginPath();
+              ctx.moveTo(residueX, residueY);
+              ctx.lineTo(x, y);
+              ctx.strokeStyle = highlightColor;
+              ctx.lineWidth = 1.5;
+              ctx.stroke();
             } else {
-              element.classList.remove('chiral');
+              // Chiral centers in positions 1 and 4
+              element.addEventListener('dblclick', handleChiralDoubleClick);
+  
+              // Check if there is a chiral mutation in this position
+              const isChiral = chiralMutations.some(mutation =>
+                mutation.residueIndex === i && mutation.position === pos
+              );
+              if (isChiral) {
+                element.classList.add('active');
+              } else {
+                element.classList.remove('active');
+              }
+  
+              circularDisplay.appendChild(element);
             }
-
-            circularDisplay.appendChild(element);
-
-            // Draw lines from the residue to the drop target
-            const residueX = canvas.width / 2 + 200 * Math.cos(angle);
-            const residueY = canvas.height / 2 + 200 * Math.sin(angle);
-
-            ctx.beginPath();
-            ctx.moveTo(residueX, residueY);
-            ctx.lineTo(x, y);
-            ctx.strokeStyle = highlightColor;
-            ctx.lineWidth = 1.5;
-            ctx.stroke();
-          } else {
-            // Chiral centers in positions 1 and 4
-            element.addEventListener('dblclick', handleChiralDoubleClick);
-
-            // Check if there is a chiral mutation in this position
-            const isChiral = chiralMutations.some(mutation =>
-              mutation.residueIndex === i && mutation.position === pos
-            );
-            if (isChiral) {
-              element.classList.add('active');
-            } else {
-              element.classList.remove('active');
-            }
-
-            circularDisplay.appendChild(element);
-          }
-        });
+          });
+        }
       }
-    }
-
+    
     function handleChiralDoubleClick(event) {
       const residueIndex = parseInt(event.currentTarget.dataset.residueIndex);
       const position = parseInt(event.currentTarget.dataset.position);
