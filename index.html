@@ -1018,23 +1018,57 @@
       ctx.stroke();
 
       // Draw residues
-      for (let i = 0; i < residueCount; i++) {
-        const angle = (i * 2 * Math.PI) / residueCount - Math.PI / 2;
-        const x = centerX + radius * Math.cos(angle);
-        const y = centerY + radius * Math.sin(angle);
+      //for (let i = 0; i < residueCount; i++) {
+      //  const angle = (i * 2 * Math.PI) / residueCount - Math.PI / 2;
+      //  const x = centerX + radius * Math.cos(angle);
+      //  const y = centerY + radius * Math.sin(angle);
 
         // Draw circle for each residue
-        ctx.beginPath();
-        ctx.arc(x, y, 12, 0, Math.PI * 2);
-        ctx.fillStyle = secondaryColor;
-        ctx.fill();
+      //  ctx.beginPath();
+      //  ctx.arc(x, y, 12, 0, Math.PI * 2);
+      //  ctx.fillStyle = secondaryColor;
+      //  ctx.fill();
 
-        // Draw residue number
-        ctx.fillStyle = '#fff';
-        ctx.font = 'bold 14px Roboto';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.fillText(i + 1, x, y);
+      // Dibujar hexágonos para cada residuo
+      for (let i = 0; i < residueCount; i++) {
+          const angle = (i * 2 * Math.PI) / residueCount - Math.PI / 2;
+          const x = centerX + radius * Math.cos(angle);
+          const y = centerY + radius * Math.sin(angle);
+          
+          // Tamaño del hexágono
+          const hexSize = 20;
+          
+          // Calcular los vértices del hexágono
+          // Ajustamos el ángulo inicial para que los vértices 1 y 4 estén sobre el perímetro
+          const vertices = [];
+          for (let j = 0; j < 6; j++) {
+              // Rotamos 30 grados (π/6) para que los vértices 1 y 4 estén sobre el perímetro
+              const vertexAngle = angle + (j * Math.PI / 3) + Math.PI/6;
+              vertices.push({
+                  x: x + hexSize * Math.cos(vertexAngle),
+                  y: y + hexSize * Math.sin(vertexAngle)
+              });
+          }
+  
+          // Dibujar hexágono
+          ctx.beginPath();
+          ctx.moveTo(vertices[0].x, vertices[0].y);
+          for (let j = 1; j < 6; j++) {
+              ctx.lineTo(vertices[j].x, vertices[j].y);
+          }
+          ctx.closePath();
+          ctx.fillStyle = secondaryColor;
+          ctx.fill();
+          ctx.strokeStyle = '#fff';
+          ctx.lineWidth = 1;
+          ctx.stroke();
+  
+          // Dibujar número del residuo en el centro del hexágono
+          ctx.fillStyle = '#fff';
+          ctx.font = 'bold 14px Roboto';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText(i + 1, x, y);
       }
     }
 
