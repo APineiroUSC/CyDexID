@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>CyDexID Generator</title>
+  <title>CyDexID Generator: This tool generates unambiguous nomenclature for cyclodextrin monomers</title>
   <style>
     /* Estilos */
     @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
@@ -493,7 +493,7 @@
 
     <!-- Header -->
     <div class="header">
-      <h1>CyDexID Generator</h1>
+      <h1>CyDexID Generator: This tool generates unambiguous nomenclature for cyclodextrin monomers</h1>
     </div>
 
     <!-- Main Content -->
@@ -509,30 +509,30 @@
             <ol style="margin: 10px 0 20px 25px; line-height: 1.4;">
               <li><strong>Basic Setup:</strong>
                 <ul style="margin: 5px 0 10px 20px;">
-                  <li>Select the number of residues (3-15) using the control panel</li>
-                  <li>The circular diagram shows the cyclodextrin structure where each point represents a glucose residue</li>
+                  <li>Select the number of glucopyranoside units (residues) using the control panel (3-15) </li>
+                  <li>The circular diagram shows the cyclodextrin structure where each hexagon represents a glucose residue</li>
                 </ul>
               </li>
               
               <li><strong>Adding Modifications:</strong>
                 <ul style="margin: 5px 0 10px 20px;">
-                  <li>Drag mutations from the sidebar to specific positions in the diagram</li>
-                  <li>Position 6 points inward, while positions 2 and 3 point outward</li>
-                  <li>Create custom mutations using the "Add New Mutation" field</li>
+                  <li>Drag functional groups from the sidebar to the red circles in the diagram, corresponding to the primary alcohol (position 6, pointing inward) or secondary alcohols (positions 2 and 3, pointing outward).</li>
+                  <li>Create custom functional groups using the "Add New Functional Group" field</li>
                 </ul>
               </li>
               
               <li><strong>Managing Chirality:</strong>
                 <ul style="margin: 5px 0 10px 20px;">
-                  <li>Double-click on mutation circles (positions 2, 3, 6) to toggle chirality changes</li>
-                  <li>Smaller circles at positions 1 and 4 represent additional chiral centers</li>
-                  <li>Double-click these centers to indicate chirality modifications</li>
+                  <li>Double-click on the red circles (positions 2, 3, and 6) to toggle chirality changes for the carbon atoms supporting the corresponding functional groups</li>
+                  <li>Smaller circles at positions 1 and 4 represent additional chiral centers. Double-click these circles to modify the chirality of their respective carbon atoms</li>
+                  <li>By default, all chiral centers retain the native chirality found in unmodified cyclodextrins</li>
+                  <li>When chirality is altered, the circle's color changes to visually indicate the modification</li>
                 </ul>
               </li>
               
               <li><strong>Editing & Output:</strong>
                 <ul style="margin: 5px 0 10px 20px;">
-                  <li>Remove mutations by dragging their labels outside the diagram area</li>
+                  <li>Remove substituted functional grous by dragging their labels outside the diagram area</li>
                   <li>The nomenclature updates automatically in three formats below</li>
                   <li>Use the copy buttons to easily transfer the generated codes</li>
                 </ul>
@@ -548,16 +548,16 @@
         <label for="residue-count">Number of Residues (3-15):</label>
         <input type="number" id="residue-count" min="3" max="15" value="7">
 
-        <label>Available Mutations:</label>
+        <label>Available Functional Groups:</label>
         <div class="mutations" id="mutation-list">
           <div class="mutation-item" draggable="true" data-type="SBE">SBE</div>
           <div class="mutation-item" draggable="true" data-type="HP">HP</div>
           <div class="mutation-item" draggable="true" data-type="MET">MET</div>
         </div>
 
-        <label for="new-mutation">Add New Mutation:</label>
+        <label for="new-mutation">Add New Functional Group:</label>
         <input type="text" id="new-mutation" placeholder="Enter mutation code">
-        <button id="add-mutation-button">Add Mutation</button>
+        <button id="add-mutation-button">Add Functional Group</button>
 
         <!-- Help Panels -->
         <div class="help-panel">
@@ -608,12 +608,12 @@
             </table>
           </div>
 
-          <button type="button" class="collapsible">Chiral Center Conformations</button>
+          <button type="button" class="collapsible">Chiral Center Configurations</button>
           <div class="collapsible-content">
-            <p>By default, all glucose residues have natural chirality. Modifications at chiral centers are specified using specific position codes, with one digit per residue in the sequence:</p>
+            <p>By default, all glucopyranoside units in the sequence retain their natural chirality. Chirality changes at specific carbon atoms are encoded using a position-specific binary code. Each unit in the sequence is represented by a single digit, and the code is prefixed with RS236 or RS14, depending on the positions being modified.</p>
             
-            <h4>For positions 2, 3 and 6 (RS236):</h4>
-            <p>Each residue in the sequence uses the same position codes as substitutions (2,3,5,6,8,9,1). The prefix RS236 applies to the entire sequence.</p>
+            <h4>RS236: Chirality Changes at Positions 2, 3, and 6</h4>
+            <p>The prefix RS236 indicates modifications at positions 2, 3, and 6 of the glucopyranoside units. Each code represents a specific combination of chirality changes.</p>
             <table>
               <tr>
                 <th>Code</th>
@@ -623,42 +623,42 @@
               <tr>
                 <td>2</td>
                 <td>Position 2</td>
-                <td>Change of chirality at position 2</td>
+                <td>Chirality change at position 2</td>
               </tr>
               <tr>
                 <td>3</td>
                 <td>Position 3</td>
-                <td>Change of chirality at position 3</td>
+                <td>Chirality change at position 3</td>
               </tr>
               <tr>
                 <td>5</td>
                 <td>Positions 2,3</td>
-                <td>Changes of chirality at positions 2 and 3</td>
+                <td>Chirality change at positions 2 and 3</td>
               </tr>
               <tr>
                 <td>6</td>
                 <td>Position 6</td>
-                <td>Change of chirality at position 6</td>
+                <td>Chirality change at position 6</td>
               </tr>
               <tr>
                 <td>8</td>
                 <td>Positions 2,6</td>
-                <td>Changes of chirality at positions 2 and 6</td>
+                <td>Chirality change at positions 2 and 6</td>
               </tr>
               <tr>
                 <td>9</td>
                 <td>Positions 3,6</td>
-                <td>Changes of chirality at positions 3 and 6</td>
+                <td>Chirality change at positions 3 and 6</td>
               </tr>
               <tr>
                 <td>1</td>
                 <td>Positions 2,3,6</td>
-                <td>Changes of chirality at all positions</td>
+                <td>Chirality change at all positions</td>
               </tr>
             </table>
 
-            <h4>For positions 1 and 4 (RS14):</h4>
-            <p>Each residue in the sequence uses codes (1,4,5) for anomeric (1) and ring (4) positions. The prefix RS14 applies to the entire sequence.</p>
+            <h4>RS14: Chirality Changes at Positions 1 and 4</h4>
+            <p>The prefix RS14 is used for chirality changes at positions 1 (anomeric center) and 4 (ring position) of the glucopyranoside units.</p>
             <table>
               <tr>
                 <th>Code</th>
@@ -668,17 +668,17 @@
               <tr>
                 <td>1</td>
                 <td>Position 1</td>
-                <td>Change of chirality at position 1</td>
+                <td>Chirality change at position 1</td>
               </tr>
               <tr>
                 <td>4</td>
                 <td>Position 4</td>
-                <td>Change of chirality at position 4</td>
+                <td>Chirality change at position 4</td>
               </tr>
               <tr>
                 <td>5</td>
                 <td>Positions 1,4</td>
-                <td>Changes of chirality at positions 1 and 4</td>
+                <td>Chirality change at positions 1 and 4</td>
               </tr>
             </table>
           </div>
@@ -717,7 +717,7 @@
                  width="600" 
                  height="600">
             <div class="molecule-info">
-              <p>In the cyclodextrin representation, each <strong>green circle represents an entire glucopyranose ring</strong>, simplifying its detailed structure. The numbers <em>(1, 2, 3, 4, and 6)</em> correspond to key features of the glucopyranose unit:</p>
+              <p>Simplified representation of a <strong>glucopyranose ring</strong>.</p>
               
               <ul>
                 <li><strong>Positions 1 and 4</strong> are chiral centers</li>
@@ -733,14 +733,14 @@
         <div class="nomenclature">
           <h3>Generated Nomenclature</h3>
           
-          <h4>Canonical Extended Nomenclature (CyDexID-EC)</h4>
-          <pre id="canonical-extended-nomenclature">No mutations applied.</pre>
+          <h4>Canonical Extended Nomenclature (CyDexID-E)</h4>
+          <pre id="canonical-extended-nomenclature">No substitutions applied.</pre>
 
-          <h4>Extended Nomenclature (CyDexID-E)</h4>
-          <pre id="extended-nomenclature">No mutations applied.</pre>
+          <!--<h4>Extended Nomenclature (CyDexID-E)</h4>
+          <pre id="extended-nomenclature">No substitutions applied.</pre>-->
 
           <h4>Compact Nomenclature (CyDexID-S)</h4>
-          <pre id="compact-nomenclature">No mutations applied.</pre>
+          <pre id="compact-nomenclature">No substitutions applied.</pre>
 
           <div class="buttons">
             <button onclick="copyText('canonical-extended-nomenclature')">Copy Canonical Extended Nomenclature</button>
