@@ -1059,12 +1059,14 @@
           ctx.lineWidth = 3;
           ctx.stroke();
   
-          // Dibujar número del residuo en el centro del hexágono
-          //ctx.fillStyle = '#fff';
-          //ctx.font = 'bold 14px Roboto';
-          //ctx.textAlign = 'center';
-          //ctx.textBaseline = 'middle';
-          //ctx.fillText(i + 1, x, y);
+          // Dibujar círculo rojo en el vértice 5
+          ctx.beginPath();
+          ctx.arc(vertices[3].x, vertices[3].y, 8, 0, Math.PI * 2); // Aumentar el tamaño del círculo
+          ctx.fillStyle = '#ffffff';
+          ctx.fill();
+          ctx.strokeStyle = '#FF0000'; // Rojo más brillante
+          ctx.lineWidth = 3;
+          ctx.stroke();
       }
     }
 
