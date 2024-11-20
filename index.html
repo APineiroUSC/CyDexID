@@ -1017,18 +1017,6 @@
       ctx.lineWidth = 3;
       ctx.stroke();
 
-      // Draw residues
-      //for (let i = 0; i < residueCount; i++) {
-      //  const angle = (i * 2 * Math.PI) / residueCount - Math.PI / 2;
-      //  const x = centerX + radius * Math.cos(angle);
-      //  const y = centerY + radius * Math.sin(angle);
-
-        // Draw circle for each residue
-      //  ctx.beginPath();
-      //  ctx.arc(x, y, 12, 0, Math.PI * 2);
-      //  ctx.fillStyle = secondaryColor;
-      //  ctx.fill();
-
       // Dibujar hexágonos para cada residuo
       for (let i = 0; i < residueCount; i++) {
           const angle = (i * 2 * Math.PI) / residueCount - Math.PI / 2;
@@ -1057,18 +1045,18 @@
               ctx.lineTo(vertices[j].x, vertices[j].y);
           }
           ctx.closePath();
-          ctx.fillStyle = secondaryColor;
+          ctx.fillStyle = '#ffffff';
           ctx.fill();
-          ctx.strokeStyle = '#fff';
-          ctx.lineWidth = 1;
+          ctx.strokeStyle = secondaryColor;
+          ctx.lineWidth = 3;
           ctx.stroke();
   
           // Dibujar número del residuo en el centro del hexágono
-          ctx.fillStyle = '#fff';
-          ctx.font = 'bold 14px Roboto';
-          ctx.textAlign = 'center';
-          ctx.textBaseline = 'middle';
-          ctx.fillText(i + 1, x, y);
+          //ctx.fillStyle = '#fff';
+          //ctx.font = 'bold 14px Roboto';
+          //ctx.textAlign = 'center';
+          //ctx.textBaseline = 'middle';
+          //ctx.fillText(i + 1, x, y);
       }
     }
 
