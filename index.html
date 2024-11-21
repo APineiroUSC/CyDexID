@@ -1021,13 +1021,18 @@
     function updateResidueCount() {
       let newCount = parseInt(residueCountInput.value);
       if (newCount < 3 || newCount > 15) {
-        alert('Please enter a number of residues between 3 and 15.');
+        alert('Please enter a number of Glucopyranoside units between 3 and 15.');
         residueCountInput.value = residueCount;
         return;
       }
       residueCount = newCount;
       mutations = [];
       chiralMutations = [];
+
+      const circularDisplay = document.getElementById('circular-display');
+      const elementsToRemove = circularDisplay.querySelectorAll('.drop-target, .chiral-center, .mutation-label');
+      elementsToRemove.forEach(el => el.remove());
+      
       drawStructure();
       createDropTargets();
       drawHexagons();
