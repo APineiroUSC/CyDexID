@@ -1451,14 +1451,11 @@
       );
 
       if (existingMutation) {
-        // Reemplazar la mutación existente, NO eliminar
-        existingMutation.mutationType = mutationType;
-        // Actualizar la etiqueta con la nueva mutación
-        const existingLabel = document.querySelector(`.mutation-label[data-residue-index="${residueIndex}"][data-position="${position}"]`);
-        if (existingLabel) {
-          existingLabel.textContent = `${mutationType} (${position})`;
-          existingLabel.dataset.type = mutationType;
+        // If there's already a mutation in this position, don't allow a new one
+        if (existingMutation.mutationType !== mutationType) {
+          alert('This position already has a mutation. Remove it first before adding a new one.');
         }
+        return;
       }
 
       // Add new mutation
