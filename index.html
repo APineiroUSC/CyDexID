@@ -452,8 +452,8 @@
       background-color: #fff;
       border: 1px solid var(--border-color);
       border-radius: 8px;
-      width: 600px;
-      height: 600px;
+      width: 400px;
+      height: 500px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -463,6 +463,8 @@
       max-width: 100%;
       max-height: 100%;
       object-fit: contain;
+      width: 400px;
+      height: 500px;
     }
 
     .molecule-info {
@@ -510,6 +512,158 @@
       -webkit-touch-callout: none;
       -webkit-user-select: none;
       user-select: none;
+    }
+
+    .molecule-container {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      justify-content: center;
+      margin-bottom: 20px;
+      width: 100%;
+    }
+
+    .controls-panel {
+      background-color: #fff;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      width: 500px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .panel-header {
+      background-color: var(--primary-color);
+      padding: 15px 0;
+      border-radius: 0;
+      margin: 0;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .panel-header h2 {
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      font-weight: 500;
+      font-size: 1.3em;
+      text-align: center;
+    }
+
+    .panel-content {
+      padding: 20px;
+    }
+
+    .controls-panel label {
+      display: block;
+      margin: 10px 0 5px;
+      font-weight: 500;
+      color: var(--text-color);
+    }
+
+    .controls-panel input[type="number"],
+    .controls-panel input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      font-size: 1em;
+    }
+
+    .controls-panel button {
+      width: 100%;
+      padding: 10px;
+      background-color: var(--primary-color);
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1em;
+      transition: background-color 0.2s;
+    }
+
+    .controls-panel button:hover {
+      background-color: #3498db;
+    }
+
+    .controls-panel .mutations {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .mutation-item {
+      padding: 10px 15px;
+      background-color: var(--secondary-color);
+      color: #fff;
+      border-radius: 4px;
+      cursor: grab;
+      user-select: none;
+      transition: background-color 0.2s;
+    }
+
+    .mutation-item:hover {
+      background-color: #2ecc71;
+    }
+
+    @media (max-width: 1200px) {
+      .molecule-container {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .controls-panel {
+        width: 100%;
+        max-width: 600px;
+        margin-top: 20px;
+      }
+    }
+
+    .share-popup {
+      display: none; /* Asegurarse de que está oculto por defecto */
+      margin-top: 10px;
+    }
+
+    .share-popup.active {
+      display: flex; /* Solo se mostrará cuando tenga la clase 'active' */
+      gap: 10px;
+    }
+
+    .share-popup input {
+      flex: 1;
+      padding: 8px;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+
+    .share-popup button {
+      white-space: nowrap;
+      padding: 8px 15px;
+      background-color: var(--secondary-color);
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .share-section {
+      margin-top: 30px; /* Aumentado de 20px a 30px */
+      padding-top: 20px;
+      border-top: 1px solid var(--border-color);
+    }
+
+    /* Opcional: agregar un separador visual más claro */
+    .share-section::before {
+      content: '';
+      display: block;
+      margin-bottom: 20px;
     }
   </style>
 
@@ -571,21 +725,22 @@
           </div>
         </div>
 
-        <h2>Controls</h2>
+        <div class="molecule-display">
+          <img src="GPUfinal.png" 
+               alt="molecule diagrams showing a simplified representation of a molecule with numbered nodes connected by lines of varying colors on the left, and a more detailed, chemically accurate representation with numbered nodes, bonds, and chemical symbols on the right" 
+               width="600" 
+               height="600">
+          <div class="molecule-info">
+            <p>Simplified representation of a <strong>glucopyranose ring</strong>.</p>
+            
+            <ul>
+              <li><strong>Positions 1 and 4</strong> are chiral centers</li>
+              <li><strong>Positions 2, 3, and 6</strong> are both chiral centers and potential sites for substitution, as indicated by the "R" groups</li>
+            </ul>
 
-        <label for="residue-count">Number of Glucopyranoside Units (3-15):</label>
-        <input type="number" id="residue-count" min="3" max="15" value="7">
-
-        <label>Available Functional Groups:</label>
-        <div class="mutations" id="mutation-list">
-          <div class="mutation-item" draggable="true" data-type="SBE">SBE</div>
-          <div class="mutation-item" draggable="true" data-type="HP">HP</div>
-          <div class="mutation-item" draggable="true" data-type="MET">MET</div>
+            <p>This schematic allows clear visualization of both the chiral centers and the specific substitution sites, streamlining the complex molecular structure into an intuitive and interactive format that preserves all chemically relevant information.</p>
+          </div>
         </div>
-
-        <label for="new-mutation">Add New Functional Group:</label>
-        <input type="text" id="new-mutation" placeholder="Enter substitution group code">
-        <button id="add-mutation-button">Add Functional Group</button>
 
         <!-- Help Panels -->
         <div class="help-panel">
@@ -737,27 +892,40 @@
       <div class="content">
         <div class="molecule-container">
           <div id="circular-display">
-            <!-- The Canvas and Drop Targets will be generated by JavaScript -->
+            <!-- Canvas and Drop Targets generated by JavaScript -->
           </div>
-          <div class="molecule-display">
-            <img src="GPUfinal.png" 
-                 alt="molecule diagrams showing a simplified representation of a molecule with numbered nodes connected by lines of varying colors on the left, and a more detailed, chemically accurate representation with numbered nodes, bonds, and chemical symbols on the right" 
-                 width="600" 
-                 height="600">
-            <div class="molecule-info">
-              <p>Simplified representation of a <strong>glucopyranose ring</strong>.</p>
-              
-              <ul>
-                <li><strong>Positions 1 and 4</strong> are chiral centers</li>
-                <li><strong>Positions 2, 3, and 6</strong> are both chiral centers and potential sites for substitution, as indicated by the "R" groups</li>
-              </ul>
+          
+          <div class="controls-panel">
+            <div class="panel-header">
+              <h2>Controls</h2>
+            </div>
 
-              <p>This schematic allows clear visualization of both the chiral centers and the specific substitution sites, streamlining the complex molecular structure into an intuitive and interactive format that preserves all chemically relevant information.</p>
+            <div class="panel-content">
+              <label for="residue-count">Number of Glucopyranoside Units (3-15):</label>
+              <input type="number" id="residue-count" min="3" max="15" value="7">
+
+              <label>Available Functional Groups:</label>
+              <div class="mutations" id="mutation-list">
+                <div class="mutation-item" draggable="true" data-type="SBE">SBE</div>
+                <div class="mutation-item" draggable="true" data-type="HP">HP</div>
+                <div class="mutation-item" draggable="true" data-type="MET">MET</div>
+              </div>
+
+              <label for="new-mutation">Add New Functional Group:</label>
+              <div class="add-mutation-container">
+                <input type="text" id="new-mutation" placeholder="Enter substitution group code">
+                <button id="add-mutation-button">Add Functional Group</button>
+              </div>
+
+              <!-- Simplificar la sección de compartir -->
+              <div class="share-section">
+                <button id="share-button" class="share-button">Share Configuration</button>
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- Nomenclature -->
+        <!-- Nomenclature section continues below -->
         <div class="nomenclature">
           <h3>Generated Nomenclature</h3>
           
@@ -1590,6 +1758,137 @@
       mutationList.appendChild(mutationItem);
       newMutationInput.value = '';
     }
+
+    // Agregar estos event listeners después de que el DOM esté cargado
+    document.addEventListener('DOMContentLoaded', function() {
+        // Event listener para el botón de compartir
+        document.getElementById('share-button').addEventListener('click', () => {
+            const shareUrl = generateShareLink();
+            
+            // Usar el API moderno del portapapeles
+            navigator.clipboard.writeText(shareUrl)
+                .then(() => {
+                    const shareButton = document.getElementById('share-button');
+                    const originalText = shareButton.textContent;
+                    shareButton.textContent = 'Link Copied!';
+                    setTimeout(() => {
+                        shareButton.textContent = originalText;
+                    }, 2000);
+                })
+                .catch(err => {
+                    console.error('Error copying text:', err);
+                    // Fallback para navegadores que no soportan el API del portapapeles
+                    const tempInput = document.createElement('input');
+                    document.body.appendChild(tempInput);
+                    tempInput.value = shareUrl;
+                    tempInput.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(tempInput);
+                    
+                    const shareButton = document.getElementById('share-button');
+                    const originalText = shareButton.textContent;
+                    shareButton.textContent = 'Link Copied!';
+                    setTimeout(() => {
+                        shareButton.textContent = originalText;
+                    }, 2000);
+                });
+        });
+
+        // Event listener para el botón de copiar
+        document.getElementById('copy-url-button').addEventListener('click', () => {
+            const shareUrlInput = document.getElementById('share-url');
+            shareUrlInput.select();
+            navigator.clipboard.writeText(shareUrlInput.value)
+                .then(() => {
+                    const copyButton = document.getElementById('copy-url-button');
+                    const originalText = copyButton.textContent;
+                    copyButton.textContent = 'Copied!';
+                    setTimeout(() => {
+                        copyButton.textContent = originalText;
+                    }, 2000);
+                })
+                .catch(err => {
+                    console.error('Error copying text:', err);
+                    alert('Failed to copy text to clipboard');
+                });
+        });
+    });
+
+    // Función para generar el enlace de compartir
+    function generateShareLink() {
+        const config = {
+            residueCount: residueCount,
+            mutations: mutations,
+            chiralMutations: chiralMutations
+        };
+        
+        // Convertir la configuración a Base64 para hacerla más corta y URL-friendly
+        const encodedConfig = btoa(JSON.stringify(config));
+        const shareUrl = `${window.location.origin}${window.location.pathname}?config=${encodedConfig}`;
+        
+        return shareUrl;
+    }
+
+    // Función para cargar una configuración compartida
+    function loadSharedConfig() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const encodedConfig = urlParams.get('config');
+        
+        if (encodedConfig) {
+            try {
+                const config = JSON.parse(atob(encodedConfig));
+                
+                // Actualizar el número de residuos
+                residueCount = config.residueCount;
+                document.getElementById('residue-count').value = residueCount;
+                
+                // Cargar mutaciones
+                mutations = config.mutations;
+                chiralMutations = config.chiralMutations;
+                
+                // Actualizar la lista de grupos funcionales
+                const mutationList = document.getElementById('mutation-list');
+                mutationList.innerHTML = ''; // Limpiar la lista actual
+                
+                // Crear un Set para tener grupos funcionales únicos
+                const uniqueTypes = new Set(mutations.map(m => m.mutationType));
+                
+                // Agregar los grupos funcionales predeterminados si no están ya incluidos
+                ['SBE', 'HP', 'MET'].forEach(type => uniqueTypes.add(type));
+                
+                // Crear elementos para cada grupo funcional
+                uniqueTypes.forEach(type => {
+                    const mutationItem = document.createElement('div');
+                    mutationItem.className = 'mutation-item';
+                    mutationItem.draggable = true;
+                    mutationItem.dataset.type = type;
+                    mutationItem.textContent = type;
+                    
+                    // Agregar manejadores de eventos
+                    addDragAndTouchHandlers(mutationItem);
+                    
+                    mutationList.appendChild(mutationItem);
+                });
+                
+                // Redibujar todo
+                drawStructure();
+                createDropTargets();
+                drawHexagons();
+                
+                // Recrear las etiquetas de mutación
+                mutations.forEach(mutation => {
+                    displayMutationLabel(mutation.residueIndex, mutation.position, mutation.mutationType);
+                });
+                
+                updateNomenclature();
+            } catch (error) {
+                console.error('Error loading shared configuration:', error);
+            }
+        }
+    }
+
+    // Cargar configuración compartida al iniciar
+    loadSharedConfig();
   </script>
 
 </body>
