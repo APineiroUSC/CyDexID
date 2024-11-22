@@ -252,6 +252,8 @@
       background-color: rgba(155, 89, 182, 0.2);
       box-shadow: 0 0 10px rgba(155, 89, 182, 0.5);
       transform: translate(-50%, -50%) scale(1.3);
+      isolation: isolate;
+      overflow: hidden;
     }
 
     /* Nomenclatura */
@@ -312,9 +314,52 @@
     }
 
     .help-panel:first-of-type .collapsible-content {
-      border: 2px solid var(--primary-color);
-      border-top: none;
-      border-radius: 0 0 4px 4px;
+      padding: 8px;
+    }
+
+    .help-panel:first-of-type .collapsible-content p {
+      margin: 3px 0;
+    }
+
+    .help-panel:first-of-type .collapsible-content ol {
+      margin: 3px 0;
+      padding-left: 15px;
+    }
+
+    .help-panel:first-of-type .collapsible-content ul {
+      margin: 0;
+      padding-left: 12px;
+    }
+
+    .help-panel:first-of-type .collapsible-content li {
+      margin: 0;
+      line-height: 1.1;
+    }
+
+    .help-panel:not(:first-of-type) table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 10px 0;
+    }
+
+    .help-panel:not(:first-of-type) th,
+    .help-panel:not(:first-of-type) td {
+      border: 1px solid var(--border-color);
+      padding: 8px;
+      text-align: left;
+    }
+
+    .help-panel:not(:first-of-type) th {
+      background-color: #f5f5f5;
+      font-weight: 500;
+    }
+
+    .help-panel:not(:first-of-type) tr:nth-child(even) {
+      background-color: #fafafa;
+    }
+
+    .help-panel:not(:first-of-type) .collapsible-content {
+      padding: 15px;
     }
 
     .collapsible {
@@ -342,30 +387,108 @@
     }
 
     .collapsible-content {
-      padding: 0 15px;
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.2s ease-out;
-      background-color: #fff;
-      border: 1px solid var(--border-color);
-      border-top: none;
+      display: none; /* Oculto por defecto */
     }
 
-    .collapsible-content table {
+    /* Estilo especial para el primer panel */
+    .help-panel:first-of-type .collapsible {
+      background-color: var(--primary-color);
+      color: white;
+      font-size: 1.1em;
+      border-radius: 4px;
+    }
+
+    .help-panel:first-of-type .collapsible:hover {
+      background-color: #3498db;
+    }
+
+    .help-panel:first-of-type .collapsible-content {
+      padding: 8px;
+    }
+
+    .help-panel:first-of-type .collapsible-content p {
+      margin: 3px 0;
+    }
+
+    .help-panel:first-of-type .collapsible-content ol {
+      margin: 3px 0;
+      padding-left: 15px;
+    }
+
+    .help-panel:first-of-type .collapsible-content ul {
+      margin: 0;
+      padding-left: 12px;
+    }
+
+    .help-panel:first-of-type .collapsible-content li {
+      margin: 0;
+      line-height: 1.1;
+    }
+
+    .help-panel:not(:first-of-type) table {
       width: 100%;
       border-collapse: collapse;
-      margin-bottom: 15px;
+      margin: 10px 0;
     }
 
-    .collapsible-content table th,
-    .collapsible-content table td {
+    .help-panel:not(:first-of-type) th,
+    .help-panel:not(:first-of-type) td {
       border: 1px solid var(--border-color);
       padding: 8px;
       text-align: left;
     }
 
-    .collapsible-content table th {
-      background-color: #f9f9f9;
+    .help-panel:not(:first-of-type) th {
+      background-color: #f5f5f5;
+      font-weight: 500;
+    }
+
+    .help-panel:not(:first-of-type) tr:nth-child(even) {
+      background-color: #fafafa;
+    }
+
+    .help-panel:not(:first-of-type) .collapsible-content {
+      padding: 15px;
+    }
+
+    .collapsible-content p {
+      margin: 3px 0;
+    }
+
+    .collapsible-content ol {
+      margin: 3px 0;
+      padding-left: 15px;
+    }
+
+    .collapsible-content ul {
+      margin: 0;
+      padding-left: 12px;
+    }
+
+    .collapsible-content li {
+      margin: 0;
+      line-height: 1.1;
+    }
+
+    .collapsible-content em {
+      font-size: 0.9em;
+    }
+
+    /* Ajustar el espaciado entre secciones principales */
+    .collapsible-content > ol > li {
+      margin-bottom: 2px;
+    }
+
+    /* Eliminar casi todo el espaciado entre elementos de lista anidados */
+    .collapsible-content ul li {
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Reducir el espacio después de cada sección principal */
+    .collapsible-content > ol > li > strong {
+      margin-bottom: 1px;
+      display: inline-block;
     }
 
     /* Diseño Responsivo */
@@ -665,6 +788,102 @@
       display: block;
       margin-bottom: 20px;
     }
+
+    .clean-tool {
+      margin: 15px 0;
+    }
+
+    .clean-tool-container {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      background-color: var(--primary-color);
+      padding: 12px 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      overflow: hidden;
+      border: none;
+      position: relative;
+      isolation: isolate;
+    }
+
+    .clean-tool-text {
+      color: white;
+      font-size: 1.1em;
+      font-weight: 500;
+    }
+
+    #clean-mode-status {
+      font-weight: bold;
+    }
+
+    #clean-mutation-button {
+      background: transparent;
+      border: 2px solid white;
+      border-radius: 50%;
+      cursor: pointer;
+      padding: 12px;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      position: relative;
+      text-decoration: none;
+      outline: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+    }
+
+    #clean-mutation-button::before,
+    #clean-mutation-button::after {
+      display: none;
+    }
+
+    #clean-mutation-button svg {
+      width: 30px;
+      height: 30px;
+      fill: white;
+    }
+
+    #clean-mutation-button:hover {
+      background: rgba(255,255,255,0.2);
+      transform: scale(1.1);
+    }
+
+    /* Estilo cuando está activo */
+    .clean-tool-container.active {
+      background-color: var(--highlight-color);
+      border: none;
+      outline: none;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      &::before,
+      &::after {
+        display: none;
+      }
+    }
+
+    /* Nuevo CSS específico para eliminar las líneas */
+    .chiral-center::before,
+    .chiral-center::after {
+      display: none !important;
+      content: none !important;
+    }
+
+    .chiral-center {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+    }
+
+    /* Asegurarse de que no hay decoraciones extra */
+    .chiral-center.active::before,
+    .chiral-center.active::after {
+      display: none !important;
+      content: none !important;
+    }
   </style>
 
   <script defer src="https://cdn.overtracking.com/t/towjyRuCGXRl6Zi2o/"></script>
@@ -687,41 +906,36 @@
           <button type="button" class="collapsible">Usage Instructions</button>
           <div class="collapsible-content">
             <p>This application generates CyDexID nomenclature for cyclodextrin molecules through an interactive interface:</p>
-            
-            <ol style="margin: 10px 0 20px 25px; line-height: 1.4;">
+            <ol style="margin: 2px 0 5px 12px; line-height: 1.2;">
               <li><strong>Basic Setup:</strong>
-                <ul style="margin: 5px 0 10px 20px;">
-                  <li>Select the number of glucopyranoside units (residues) using the control panel (3-15) </li>
+                <ul style="margin: 1px 0 2px 8px;">
+                  <li>Select the number of glucopyranoside units (residues) using the control panel (3-15)</li>
                   <li>The circular diagram shows the cyclodextrin structure where each hexagon represents a glucose residue</li>
                 </ul>
               </li>
-              
               <li><strong>Adding Modifications:</strong>
-                <ul style="margin: 5px 0 10px 20px;">
-                  <li>Drag functional groups from the sidebar to the red circles in the diagram, corresponding to the primary alcohol (position 6, pointing inward) or secondary alcohols (positions 2 and 3, pointing outward).</li>
+                <ul style="margin: 1px 0 2px 8px;">
+                  <li>Drag functional groups from the sidebar to the red circles in the diagram, corresponding to the primary alcohol (position 6, pointing inward) or secondary alcohols (positions 2 and 3, pointing outward)</li>
                   <li>Create custom functional groups using the "Add New Functional Group" field</li>
                 </ul>
               </li>
-              
               <li><strong>Managing Chirality:</strong>
-                <ul style="margin: 5px 0 10px 20px;">
+                <ul style="margin: 1px 0 2px 8px;">
                   <li>Double-click on the red circles (positions 2, 3, and 6) to toggle chirality changes for the carbon atoms supporting the corresponding functional groups</li>
                   <li>Smaller circles at positions 1 and 4 represent additional chiral centers. Double-click these circles to modify the chirality of their respective carbon atoms</li>
                   <li>By default, all chiral centers retain the native chirality found in unmodified cyclodextrins</li>
                   <li>When chirality is altered, the circle's color changes to visually indicate the modification</li>
                 </ul>
               </li>
-              
               <li><strong>Editing & Output:</strong>
-                <ul style="margin: 5px 0 10px 20px;">
-                  <li>Remove substituted functional grous by dragging their labels outside the diagram area</li>
+                <ul style="margin: 1px 0 2px 8px;">
+                  <li>To remove substituted functional groups, activate the cleaning mode (trash bin icon) and click on the substitution you want to remove</li>
                   <li>The nomenclature updates automatically in three formats below</li>
                   <li>Use the copy buttons to easily transfer the generated codes</li>
                 </ul>
               </li>
             </ol>
-
-            <p style="margin-top: 15px;"><em>Tip: Refer to the collapsible help panels in the sidebar for detailed information about position codes and chiral center configurations.</em></p>
+            <p style="margin-top: 5px;"><em>Tip: Refer to the collapsible help panels in the sidebar for detailed information about position codes and chiral center configurations.</em></p>
           </div>
         </div>
 
@@ -917,7 +1131,23 @@
                 <button id="add-mutation-button">Add Functional Group</button>
               </div>
 
-              <!-- Simplificar la sección de compartir -->
+              <!-- Añadir el botón de limpieza aquí -->
+              <div class="clean-tool">
+                <div class="clean-tool-container">
+                  <span class="clean-tool-text">
+                    Substitutions clean mode (<span id="clean-mode-status">inactive</span>)
+                  </span>
+                  <button id="clean-mutation-button" title="Click to activate cleaning tool">
+                    <svg viewBox="0 0 24 24" width="24" height="24">
+                      <path d="M19 4h-3.5l-1-1h-5l-1 1H5v2h14M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12z" 
+                            fill="currentColor"
+                            stroke="none"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              <!-- El resto del contenido del panel -->
               <div class="share-section">
                 <button id="share-button" class="share-button">Share Configuration</button>
               </div>
@@ -990,11 +1220,18 @@
     // Event Listeners for Help Panels
     document.querySelectorAll('.collapsible').forEach(button => {
       button.addEventListener("click", function() {
+        // Toggle la clase active en el botón actual
         this.classList.toggle("active");
-        const content = this.nextElementSibling;
+        
+        // Obtener el contenido asociado
+        var content = this.nextElementSibling;
+        
+        // Toggle la visibilidad del contenido
         if (content.style.maxHeight) {
           content.style.maxHeight = null;
+          content.style.display = "none";
         } else {
+          content.style.display = "block";
           content.style.maxHeight = content.scrollHeight + "px";
         }
       });
@@ -1889,8 +2126,66 @@
 
     // Cargar configuración compartida al iniciar
     loadSharedConfig();
+
+    // Variables globales
+    let cleaningMode = false;
+
+    // Función para activar/desactivar el modo limpieza
+    function toggleCleaningMode() {
+        const button = document.getElementById('clean-mutation-button');
+        const status = document.getElementById('clean-mode-status');
+        const container = document.querySelector('.clean-tool-container');
+        cleaningMode = !cleaningMode;
+        
+        if (cleaningMode) {
+            button.classList.add('active');
+            status.textContent = 'active';
+            container.classList.add('active');
+        } else {
+            button.classList.remove('active');
+            status.textContent = 'inactive';
+            container.classList.remove('active');
+        }
+    }
+
+    // Función para limpiar una posición
+    function cleanMutation(event) {
+        if (!cleaningMode) return;
+        
+        const target = event.target;
+        if (!target.classList.contains('drop-target')) return;
+        
+        const residueIndex = parseInt(target.dataset.residueIndex);
+        const position = parseInt(target.dataset.position);
+
+        // Eliminar todas las mutaciones en esta posición
+        const mutationsToRemove = mutations.filter(m => 
+            m.residueIndex === residueIndex && 
+            m.position === position
+        );
+
+        mutationsToRemove.forEach(mutation => {
+            const index = mutations.indexOf(mutation);
+            if (index !== -1) {
+                mutations.splice(index, 1);
+                
+                // Eliminar la etiqueta visual
+                const label = document.querySelector(
+                    `.mutation-label[data-residue-index="${residueIndex}"][data-position="${position}"]`
+                );
+                if (label) {
+                    label.remove();
+                }
+            }
+        });
+
+        updateNomenclature();
+    }
+
+    // Inicializar los event listeners
+    document.getElementById('clean-mutation-button').addEventListener('click', toggleCleaningMode);
+    document.addEventListener('click', cleanMutation);
   </script>
 
 </body>
 </html>
-
